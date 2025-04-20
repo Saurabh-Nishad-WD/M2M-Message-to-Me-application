@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Saurabh Nishad",
@@ -13,5 +16,8 @@
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "mongoose": "^8.13.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
   }
 }
