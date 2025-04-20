@@ -20,8 +20,8 @@ export default function TextUploader() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-6">
-      <div className="bg-white p-6 rounded-xl shadow-md w-full max-w-lg h-[90vh]">
+    <div className=" flex items-center justify-center bg-gradient-to-r from-[#00091a] via-blue-400 to-blue-200 p-6 h-[90vh]">
+      <div className="bg-white p-6 rounded-xl shadow-md w-full max-w-lg ">
         <h2 className="text-xl font-bold mb-4">Write & Upload </h2>
         <form onSubmit={handleSubmit}>
           <textarea

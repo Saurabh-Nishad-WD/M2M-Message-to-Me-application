@@ -4,6 +4,7 @@ import './App.css'
 import Home from './pages/Home'
 import Navbar from "./components/Navbar";
 import TextUploader from "./pages/TextUpload";
+import AboutPage from "./pages/About";
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
         <Route path="/signin" element={<SignInPage />} />
         <Route path="/signup" element={<Home />} />
         <Route path="/notes" element={<TextUploader />} />
+        <Route path="/about" element={<AboutPage />} />
       </Routes>
     </>
   )

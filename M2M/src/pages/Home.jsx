@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <div className="bg-gray-100 ">
 
-      <div className="flex flex-col items-center justify-center h-[90vh] bg-gradient-to-r from-gray-900 via-gray-500 to-gray-700 text-white px-4">
+      <div className="flex flex-col items-center justify-center h-[90vh] bg-gradient-to-r from-[#00091a] via-[#002d80] to-[#1e5bcc] text-white px-4">
         
         {/* Typing Heading */}
         <h1 className="text-center text-3xl md:text-5xl font-extrabold typing-animation mb-10">
