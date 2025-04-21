@@ -1,19 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function SignInPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await axios.post("http://localhost:5000/api/auth/signin", {
+        email,
+        password,
+      });
+
+      console.log(res.data); // Can store token if needed
+      alert("Login successful!");
+      // Optionally: navigate to dashboard or store token in localStorage
+    } catch (err) {
+      console.error(err.response?.data || err.message);
+      alert(err.response?.data?.message || "Login failed!");
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-900 via-gray-500 to-gray-700">
       <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
         <h2 className="text-2xl font-bold mb-6 text-center">Sign In</h2>
 
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleLogin}>
           <div>
             <label className="block text-gray-600 mb-1">Email</label>
             <input
               type="email"
               placeholder="Enter your email"
               className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </div>
 
@@ -23,6 +48,9 @@ export default function SignInPage() {
               type="password"
               placeholder="Enter your password"
               className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </div>
 
@@ -46,11 +74,12 @@ export default function SignInPage() {
 
         <p className="text-center text-sm text-gray-600 mt-4">
           Don't have an account?{" "}
-          <Link to="/" className="hover:text-blue-900 hover:underline text-blue-600 font-bold transition duration-200">Sign Up</Link>
-
-          {/* <a href="" className="text-blue-600 hover:underline">
-            Sign up
-          </a> */}
+          <Link
+            to="/signup"
+            className="hover:text-blue-900 hover:underline text-blue-600 font-bold transition duration-200"
+          >
+            Sign Up
+          </Link>
         </p>
       </div>
     </div>
