@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 export default function SignInPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -14,10 +16,19 @@ export default function SignInPage() {
         email,
         password,
       });
+      
+      // Decode the JWT token from the response
+      const decodedToken = jwtDecode(res.data.token);
+      const userId = decodedToken.id;  // Assuming the user ID is stored in 'id' field
 
-      console.log(res.data); // Can store token if needed
+      // Store user ID and token in localStorage
+      localStorage.setItem("userId", userId);
+      localStorage.setItem("token", res.data.token);
+
       alert("Login successful!");
-      // Optionally: navigate to dashboard or store token in localStorage
+      // Optionally: Redirect to the homepage or dashboard
+      navigate("/"); // Redirect to the home page after login
+
     } catch (err) {
       console.error(err.response?.data || err.message);
       alert(err.response?.data?.message || "Login failed!");

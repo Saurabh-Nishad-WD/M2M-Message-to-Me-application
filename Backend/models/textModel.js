@@ -18,7 +18,12 @@ const storySchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-  }
+  },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User', // assuming your user model is called "User"
+    required: true,
+  },
 });
 
 const Story = mongoose.model('Story', storySchema);

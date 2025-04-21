@@ -45,3 +45,11 @@
     font-variation-settings:
       "wdth" 100;
   }
+
+  
+.playwrite {
+  font-family: "Playwrite AU SA", cursive;
+  font-optical-sizing: auto;
+  /* font-weight: <weight>; */
+  font-style: normal;
+}

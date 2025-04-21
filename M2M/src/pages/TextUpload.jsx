@@ -13,11 +13,26 @@ export default function TextUploader() {
       return;
     }
 
+    // Get the stored token (assuming it's stored in localStorage after login)
+    const token = localStorage.getItem("token"); // Adjust this as per your token storage method
+    if (!token) {
+      setStatus("❗ You need to be logged in to upload a story.");
+      return;
+    }
+
     try {
-      await axios.post("http://localhost:5000/api/users/upload-text", {
-        title,
-        textContent: text,
-      });
+      const response = await axios.post(
+        "http://localhost:5000/api/users/upload-text",
+        {
+          title,
+          textContent: text,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include the token in the request header
+          },
+        }
+      );
       setStatus("✅ Uploaded to MongoDB!");
       setTitle("");
       setText("");
@@ -28,7 +43,7 @@ export default function TextUploader() {
   };
 
   return (
-    <div className="flex items-center justify-center bg-gradient-to-r from-[#00091a] via-blue-400 to-blue-200 p-6 h-[90vh]">
+    <div className="flex items-center justify-center bg-gradient-to-r from-[#000000] via-[#040c19] to-[#13213b] p-6 h-[90vh]">
       <div className="bg-white p-6 rounded-xl shadow-md w-full max-w-lg">
         <h2 className="text-xl font-bold mb-4">Write & Upload </h2>
         <form onSubmit={handleSubmit}>
