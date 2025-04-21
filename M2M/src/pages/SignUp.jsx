@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const SignUpPage = () => {
   // State to manage form data and error messages
@@ -83,6 +84,15 @@ const SignUpPage = () => {
           >
             Sign Up
           </button>
+          <p className="text-center text-sm text-gray-600 mt-4">
+          Allready have an account?{" "}
+          <Link
+            to="/signin"
+            className="hover:text-blue-900 hover:underline text-blue-600 font-bold transition duration-200"
+          >
+            Sign In
+          </Link>
+        </p>
         </form>
       </div>
     </div>
