@@ -31,6 +31,7 @@ console.log(import.meta.env.VITE_RENDER_LINK)
       navigate("/"); // Redirect to the home page after login
 
     } catch (err) {
+     alert("PHONE PROBLEM");
       console.error(err.response?.data || err.message);
       alert(err.response?.data?.message || "Login faileeeeeeeeeeeeed!");
     }
