@@ -9,7 +9,7 @@ const AboutPage = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
-    name: "",
+    username: "",
     email: "",
     bio: "",
   });
@@ -29,11 +29,15 @@ const AboutPage = () => {
   useEffect(() => {
     if (userId) {
       axios
-        .get(`http://localhost:5000/api/users/${userId}`)
+        .get(`http://localhost:5000/api/users/${userId}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
         .then((res) => {
           setUser(res.data);
           setFormData({
-            name: res.data.name || "",
+            username: res.data.username || "", // Correct field mapping
             email: res.data.email || "",
             bio: res.data.bio || "",
           });
@@ -54,15 +58,26 @@ const AboutPage = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
+      const token = localStorage.getItem("token");
       const res = await axios.put(
         `http://localhost:5000/api/users/${userId}`,
-        formData
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Add token to headers
+          },
+        }
       );
       setUser(res.data);
       setIsEditing(false);
+
+      // Update username in localStorage after successful update
+      localStorage.setItem("username", res.data.username); 
+
       alert("Profile updated!");
     } catch (err) {
       console.error("Error updating user:", err);
+      alert("Profile update failed!");
     }
   };
 
@@ -74,15 +89,13 @@ const AboutPage = () => {
 
   if (loading) {
     return (
-      <div className="text-center mt-10 text-white text-2xl">
-        Loading...
-      </div>
+      <div className="text-center mt-10 text-white text-2xl">Loading...</div>
     );
   }
 
   if (!user) {
     return (
-      <div className="text-center mt-10 text-white text-2xl">
+      <div className="text-center mt-10 text-2xl">
         User Not Found <br />
         <Link to="/signin" className="underline text-blue-400">
           Please Login
@@ -146,8 +159,8 @@ const AboutPage = () => {
           <form onSubmit={handleFormSubmit} className="space-y-4">
             <input
               type="text"
-              name="name"
-              value={formData.name}
+              name="username" // Correct name attribute for form field
+              value={formData.username} // Correctly refer to username in formData
               onChange={handleInputChange}
               className="w-full border rounded px-3 py-2"
               placeholder="Name"
@@ -159,6 +172,7 @@ const AboutPage = () => {
               onChange={handleInputChange}
               className="w-full border rounded px-3 py-2"
               placeholder="Email"
+              disabled 
             />
             <textarea
               name="bio"
@@ -167,6 +181,8 @@ const AboutPage = () => {
               className="w-full border rounded px-3 py-2"
               placeholder="Short Bio"
             />
+                         <p className="roboto text-red-700 text-[10px] font-medium">email can't be change</p>
+
             <div className="flex justify-between">
               <button
                 type="submit"

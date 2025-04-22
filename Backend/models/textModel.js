@@ -21,7 +21,7 @@ const storySchema = new mongoose.Schema({
   },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', // assuming your user model is called "User"
+    ref: 'userModel', // assuming your user model is called "User"
     required: true,
   },
 });

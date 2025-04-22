@@ -29,16 +29,17 @@ export default function TextUploader() {
         },
         {
           headers: {
-            Authorization: `Bearer ${token}`, // Include the token in the request header
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
+    
       setStatus("✅ Uploaded to MongoDB!");
       setTitle("");
       setText("");
-    } catch (error) {
-      console.error("Error uploading:", error);
-      setStatus("❌ Failed to upload.");
+    } catch (err) {
+      console.error("Error uploading story:", err);
+      setStatus("❌ Upload failed. Please try again.");
     }
   };
 

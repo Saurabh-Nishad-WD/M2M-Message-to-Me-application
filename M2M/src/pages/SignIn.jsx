@@ -16,11 +16,12 @@ export default function SignInPage() {
         email,
         password,
       });
-      
+
       // Decode the JWT token from the response
       const decodedToken = jwtDecode(res.data.token);
       const userId = decodedToken.id;  // Assuming the user ID is stored in 'id' field
-
+      console.log("decodedToken");
+      console.log(decodedToken);
       // Store user ID and token in localStorage
       localStorage.setItem("userId", userId);
       localStorage.setItem("token", res.data.token);
