@@ -10,9 +10,9 @@ export default function SignInPage() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+console.log(import.meta.env.VITE_RENDER_LINK)
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/signin", {
+      const res = await axios.post(`${import.meta.env.VITE_RENDER_LINK}/api/auth/signin`, {
         email,
         password,
       });
@@ -32,7 +32,7 @@ export default function SignInPage() {
 
     } catch (err) {
       console.error(err.response?.data || err.message);
-      alert(err.response?.data?.message || "Login failed!");
+      alert(err.response?.data?.message || "Login faileeeeeeeeeeeeed!");
     }
   };
 

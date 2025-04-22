@@ -9,11 +9,18 @@ import uploadRoute from './routes/uploadRoutes.js';
 dotenv.config();
 const app = express();
 
+app.use((req, res, next) => {
+  console.log("Origin from client:", req.headers.origin);
+  next();
+});
+
+
 // 🌐 Middleware
 app.use(cors({
-  origin: 'http://localhost:5173',
+  origin: 'https://m2-m-message-to-me-application-x1ot.vercel.app', // Correct URL
   credentials: true
 }));
+
 app.use(express.json()); // Only once
 
 // 📦 Routes

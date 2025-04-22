@@ -29,7 +29,7 @@ const AboutPage = () => {
   useEffect(() => {
     if (userId) {
       axios
-        .get(`http://localhost:5000/api/users/${userId}`, {
+        .get(`${import.meta.env.VITE_RENDER_LINK}/api/users/${userId}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -60,7 +60,7 @@ const AboutPage = () => {
     try {
       const token = localStorage.getItem("token");
       const res = await axios.put(
-        `http://localhost:5000/api/users/${userId}`,
+       `${import.meta.env.VITE_RENDER_LINK}/api/users/${userId}`,
         formData,
         {
           headers: {

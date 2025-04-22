@@ -22,7 +22,7 @@ export default function TextUploader() {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/users/upload-text",
+        `${import.meta.env.VITE_RENDER_LINK}/api/users/upload-text`,
         {
           title,
           textContent: text,
